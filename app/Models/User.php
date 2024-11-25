@@ -50,7 +50,7 @@ class User extends Authenticatable
     public function ficheros():HasMany{
         return $this->hasMany(Fichero::class);
     }
-    public function ficherosCompartidos():HasMany{
+    public function ficheroCompartido():HasMany{
         return $this->hasMany(FicheroCompartido::class);
     }
 }

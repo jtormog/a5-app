@@ -1,6 +1,6 @@
 @include('head')
 @include('navbar')
-<form method="post" class="flex items-center justify-center min-h-screen">
+<form method="post" action="/user/{{Auth::user()->id}}" class="flex items-center justify-center min-h-screen">
     @csrf
     @method('PUT')
     <div class="grid grid-cols-1 gap-4 w-1/2 md:w-1/3 bg-gray-700 drop-shadow-md p-6 rounded-lg shadow-md border border-slate-600">

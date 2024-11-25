@@ -29,13 +29,14 @@
                 <td class="py-2 px-4 text-center"><a class="text-orange-400 hover:underline"
                         href="/download/{{ $fichero->id }}">{{ $fichero->name }}</a></td>
                 <td class="py-2 px-4 text-center">{{ $fichero->size() }}</td>
-                <td class="py-2 px-4 text-center">{{ Auth::user()->name }}</td>
+                <td class="py-2 px-4 text-center">{{ $fichero->user->name}}</td>
                 <td class="py-2 px-4 text-center">{{ $fichero->created_at }}</td>
                 <td class="py-2 px-4 text-center">{{ $fichero->updated_at ?? 'No ha sido actualizado' }}</td>
+                <td class="py-2 px-4 text-center">{{'/share/'.$fichero->id}}</td>
             </tr>
         @endforeach
         @endif
-        @if (!Auth::user()->ficherosCompartidos->isEmpty())
+        @if (!Auth::user()->ficheroCompartido->isEmpty())
         <h2 class="text-orange-500 text-2xl font-bold text-center m-5">Archivos compartidos</h2>
         <table class="min-w-full bg-gray-800 text-white">
             <tr class="bg-gray-700">
@@ -46,7 +47,7 @@
                 <th class="py-2 px-4">Created at</th>
                 <th class="py-2 px-4">Updated at</th>
             </tr>
-        @foreach (Auth::user()->ficherosCompartidos as $fichero)
+        @foreach (Auth::user()->ficheroCompartido as $fichero)
             <tr class="bg-gray-600">
                 <td class="py-2 px-4">
                     @can('delete', $fichero)
@@ -59,8 +60,8 @@
                 </td>
                 <td class="py-2 px-4 text-center"><a class="text-orange-400 hover:underline"
                         href="/download/{{ $fichero->id }}">{{ $fichero->name }}</a></td>
-                <td class="py-2 px-4 text-center">{{ $fichero->size() }}</td>
-                <td class="py-2 px-4 text-center">{{ User::find($fichero->user_id)->name}}</td>
+                <td class="py-2 px-4 text-center">{{ $fichero->fichero->size() }}</td>
+                <td class="py-2 px-4 text-center">{{ $fichero->fichero->user_id->name}}</td>
                 <td class="py-2 px-4 text-center">{{ $fichero->created_at }}</td>
                 <td class="py-2 px-4 text-center">{{ $fichero->updated_at ?? 'No ha sido actualizado' }}</td>
             </tr>

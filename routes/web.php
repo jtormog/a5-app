@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Fichero;
+use App\Models\FicheroCompartido;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -54,12 +55,32 @@ Route::get('/download/{file}', function(Fichero $file){
     return Storage::download($file->path, $file->name);
 });
 
+Route::get('/share/{file}', function(Fichero $file){
+    if($file->user_id == Auth::user()->id){
+        return;
+    }
+    $fichero_compartido = new FicheroCompartido();
+    $fichero_compartido->fichero_id = $file->id;
+    $fichero_compartido->user_id = Auth::user()->id;
+    $fichero_compartido->save();
+    
+    return redirect('/');
+});
+
 Route::get('/user/{user}', function(User $user){
     return view('user', compact('user'));
 });
 
 Route::get('user/{user}/edit/', function(User $user){
     return view('edit', compact('user'));
+});
+
+Route::put('user/{user}', function(User $user, Request $request){
+    $user->update($request->validate([
+        'name' => ['required'],
+        'email' => ['required', 'email'],
+    ]));
+    return redirect('/user/'.$user->id);
 });
 
 Route::get('/delete/{file}', function(Fichero $file){

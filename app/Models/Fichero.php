@@ -16,4 +16,7 @@ class Fichero extends Model
         $power = $size > 0 ? floor(log($size, 1024)) : 0;
         return number_format($size / pow(1024, $power), 2, '.', ',') . ' ' . $units[$power];
     }
+    public function user():BelongsTo{
+        return $this->belongsTo(User::class);
+    }
 }
