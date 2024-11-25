@@ -13,13 +13,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        //de momento esta migración no se usa
 
-        // Schema::create('rols_users', function (Blueprint $table) {
-        //     $table->id();
-        //     $table->foreignIdFor(User::class);
-        //     $table->foreignIdFor(Rol::class);
-        // });
+        Schema::create('rols_users', function (Blueprint $table) {
+            $table->id();
+            $table->foreignIdFor(User::class)->nullable();
+            $table->foreignIdFor(Rol::class)->nullable();
+        });
     }
 
     /**
@@ -27,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('rol_users');
+        Schema::dropIfExists('rols_users');
     }
 };

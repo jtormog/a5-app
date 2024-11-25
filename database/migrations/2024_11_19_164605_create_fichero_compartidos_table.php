@@ -15,17 +15,10 @@ return new class extends Migration
     {
         Schema::create('fichero_compartidos', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('fichero_id')->constrained()->cascadeOnDelete();
-            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('fichero_id')->constrained()->cascadeOnDelete()->nullable();
+            $table->foreignId('user_id')->constrained()->cascadeOnDelete()->nullable();
             $table->timestamps();
         });
-
-        // FicheroCompartido::create(
-        //     [
-        //         'fichero_id' => Fichero::first()->id,
-        //         'user_id' => 2,
-        //     ]
-        // );
     }
 
     /**
